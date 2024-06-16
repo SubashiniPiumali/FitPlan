@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "535271980881",
+    "project_id": "fit-plan-efa6d",
+    "storage_bucket": "fit-plan-efa6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535271980881:android:0f0ac5cfd264532859dd70",
+        "android_client_info": {
+          "package_name": "com.example.fitplan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqh7xtZm0p-zwFTNbMk-QfLBAyPRolAPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
