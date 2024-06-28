@@ -4,26 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gymboy"
+    android:background="@drawable/splachimage"
     tools:context=".Activity.SplashActivity">
 
     <ImageView
         android:id="@+id/imgViewLogo"
-        android:layout_width="287dp"
-        android:layout_height="347dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="85dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="340dp"
         android:transitionName="logo_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logoimg" />
+        app:srcCompat="@drawable/applogo" />
 
     <TextView
         android:id="@+id/txtViewAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/splash_title_one"
         android:textColor="#995c00"
@@ -31,6 +30,7 @@
         android:textStyle="bold"
         android:transitionName="app_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgViewLogo" />
 
@@ -38,11 +38,11 @@
         android:id="@+id/txtViewTagLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/spash_titile_two"
         android:textAlignment="center"
-        android:textColor="#ffa31a"
+        android:textColor="@color/lavender"
         android:textSize="22sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
