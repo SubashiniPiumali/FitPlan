@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff5e6"
+    android:background="@drawable/gymboy"
     tools:context=".Activity.SplashActivity">
 
     <ImageView
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/logoimg" />
 
     <TextView
         android:id="@+id/txtViewAppName"
