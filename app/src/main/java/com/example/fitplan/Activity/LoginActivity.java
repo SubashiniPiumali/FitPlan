@@ -35,10 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
-        logInpEmail = binding.loginEmail;
-        logInPassword = binding.loginPassword;
+        logInpEmail = binding.useremail.getEditText();
+        logInPassword = binding.password.getEditText();
         loginButton = binding.loginButton;
-        signUpRedirectText = binding.singupRedirectText;
+        signUpRedirectText = binding.btnSignUp;
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

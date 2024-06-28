@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fitplan.Fragment.ProfileFragment;
 import com.example.fitplan.R;
 import com.example.fitplan.databinding.ActivityMainBinding;
 import com.example.fitplan.databinding.ActivitySignupBinding;
@@ -35,10 +36,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
-        signupEmail = binding.signupEmail;
-        signupPassword = binding.signupPassword;
-        signupButton = binding.signupButton;
-        loginRedirectText = binding.loginRedirectText;
+        signupEmail = binding.useremail.getEditText();
+        signupPassword = binding.password.getEditText();
+        signupButton = binding.btnSignUp;
+        loginRedirectText = binding.btnBackToSignIn;
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,7 @@ public class SignupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignupActivity.this, "SignUp Successful",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SignupActivity.this, ProfileFragment.class));
                             } else {
                                 Toast.makeText(SignupActivity.this, "SignUp Failed",Toast.LENGTH_SHORT).show();
                             }
