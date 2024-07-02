@@ -19,4 +19,6 @@
         <item name="hintTextColor">#995c00</item>
         <item name="boxBackgroundMode">outline</item>
     </style>
+
+    <string name="calculate_your_bmi">Calculate Your BMI</string>
 </resources>
