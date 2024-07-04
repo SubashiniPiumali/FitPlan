@@ -43,8 +43,9 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
-        app:itemIconTint="#005580"
-        app:itemTextColor="#005580"/>
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/lavender"
+        app:itemTextColor="@color/black"/>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -65,9 +66,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:background="@android:color/transparent"
-                app:itemIconTint="@color/black"
+                android:background="@color/lavender"
+                app:itemIconTint="@color/lavender"
                 app:labelVisibilityMode="labeled"
+                app:itemTextColor="@color/black"
                 app:menu="@menu/bottom_menu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>

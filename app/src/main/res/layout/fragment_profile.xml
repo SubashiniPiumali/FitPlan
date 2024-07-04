@@ -24,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-20dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Welcome"
+            android:text="Pushing through the pain, embracing the gain."
             android:textColor="@color/lavender"
-            android:textSize="42sp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <ScrollView
@@ -45,7 +45,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Full Name">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -58,7 +57,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Age"
                     style="@style/CustomTextInputLayout">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Height"
                     style="@style/CustomTextInputLayout">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -82,43 +79,50 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Wight"
+                    android:hint="Weight"
                     style="@style/CustomTextInputLayout">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Spinner
-                    android:id="@+id/userTypeSpinner"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/fitness_goal"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:padding="8dp"
-                    android:entries="@array/gender_types"
-                    android:prompt="@string/txtGenderType"
-                    android:spinnerMode="dialog" />
+                    android:layout_height="wrap_content"
+                    android:hint="Fitness goal"
+                    style="@style/CustomTextInputLayout">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bmiValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="BMI Value"
+                    style="@style/CustomTextInputLayout">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <Button
-                    android:id="@+id/btnSignUp"
+                    android:id="@+id/btnUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/lavender"
-                    android:text="GO"
+                    android:text="Save"
                     android:textColor="#fff" />
 
-                <Button
-                    android:id="@+id/btnBackToSignIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="#00000000"
-                    android:text="Already have an account? LogIn"
-                    android:textColor="@color/lavender" />
 
 
             </LinearLayout>

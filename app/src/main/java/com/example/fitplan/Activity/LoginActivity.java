@@ -17,6 +17,7 @@ import com.example.fitplan.databinding.ActivityLoginBinding;
 import com.example.fitplan.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                         auth.signInWithEmailAndPassword(email,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(v, "Login Successful", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                                 Intent intent = new Intent(LoginActivity.this, FragmentHandlerActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(v, "Please enter correct email and password", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             }
                         });
                     } else {
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else if(email.isEmpty()) {
-                    logInPassword.setError("Email cannot be empty");
+                    logInpEmail.setError("Email cannot be empty");
                 } else {
                     logInPassword.setError("Please enter valid email");
                 }

@@ -8,7 +8,7 @@
     tools:context=".Activity.SplashActivity">
 
     <ImageView
-        android:id="@+id/imgViewLogo"
+        android:id="@+id/imgViewLogoOne"
         android:layout_width="85dp"
         android:layout_height="91dp"
         android:layout_marginTop="340dp"
@@ -22,30 +22,31 @@
         android:id="@+id/txtViewAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginBottom="196dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/splash_title_one"
         android:textColor="#995c00"
         android:textSize="40sp"
         android:textStyle="bold"
         android:transitionName="app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgViewLogo" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtViewTagLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="110dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/spash_titile_two"
+        android:text="@string/appname"
         android:textAlignment="center"
         android:textColor="@color/lavender"
-        android:textSize="22sp"
+        android:textSize="34sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewAppName" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
