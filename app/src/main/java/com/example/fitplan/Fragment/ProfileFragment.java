@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.fitplan.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.math.RoundingMode;
 
 public class ProfileFragment extends Fragment {
     private EditText name, age, height, weight,fitnessGoal, bmiValue;
@@ -56,14 +54,13 @@ public class ProfileFragment extends Fragment {
         user = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("users");
         userID = user.getUid();
-        Toast.makeText(getActivity(), "User " + userID, Toast.LENGTH_SHORT).show();
         // Fetch user data from Firebase
-        fetchUserData();
+        fetchUserData(view);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateUserData();
+                updateUserData(view);
             }
         });
 
@@ -71,7 +68,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void fetchUserData() {
+    private void fetchUserData(View view) {
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,8 +76,8 @@ public class ProfileFragment extends Fragment {
                     // Get user details
                     String userName = snapshot.child("name").getValue(String.class);
                     int userAge = snapshot.child("age").getValue(Integer.class);
-                    int userHeight = snapshot.child("height").getValue(Integer.class);
-                    int userWeight = snapshot.child("weight").getValue(Integer.class);
+                    Double userHeight = snapshot.child("height").getValue(Double.class);
+                    Double userWeight = snapshot.child("weight").getValue(Double.class);
                     String userfitnessGoal = snapshot.child("fitnessGoal").getValue(String.class);
                     Double userBMI = snapshot.child("bmiValue").getValue(Double.class);
                     String bmiV =  String.format("%.2f", userBMI);
@@ -92,19 +89,18 @@ public class ProfileFragment extends Fragment {
                     fitnessGoal.setText(userfitnessGoal);
                     bmiValue.setText(String.valueOf(bmiV));
                 } else {
-                    Toast.makeText(getActivity(), "User details not found " + snapshot.toString(), Toast.LENGTH_SHORT).show();
-                    Log.d("ProfileFragment", "Snapshot: " + snapshot.toString());
+                    Snackbar.make(view, "User details not found", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed to load user details", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, "Failed to load user details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
 
-    private void updateUserData() {
+    private void updateUserData(View view) {
         String newName = name.getText().toString();
         String newAge = age.getText().toString();
         String newHeight = height.getText().toString();
@@ -114,14 +110,15 @@ public class ProfileFragment extends Fragment {
 
         reference.child(userID).child("name").setValue(newName);
         reference.child(userID).child("age").setValue(Integer.parseInt(newAge));
-        reference.child(userID).child("height").setValue(Integer.parseInt(newHeight));
+        reference.child(userID).child("height").setValue(Double.parseDouble(newHeight));
+        reference.child(userID).child("weight").setValue(Double.parseDouble(newWeight));
         reference.child(userID).child("fitnessGoal").setValue(newFitnessGoal);
         reference.child(userID).child("bmiValue").setValue(Float.parseFloat(newBMIValue))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "User details updated successfully", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, "User details updated successfully", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     } else {
-                        Toast.makeText(getActivity(), "Failed to update user details", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view, "Failed to update user details", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
                 });
     }

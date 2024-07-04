@@ -79,6 +79,7 @@ public class FragmentHandlerActivity extends AppCompatActivity {
             }
             if(item.getItemId() == R.id.createWorkoutPlan){
                 replaceFragment(new CreateWorkoutPlanFragment());
+                return  true;
 
             }
             if(item.getItemId() == R.id.profile){

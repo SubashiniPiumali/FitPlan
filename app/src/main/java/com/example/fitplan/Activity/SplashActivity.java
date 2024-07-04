@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         //Hooks
-        ImageView imgViewLogo = findViewById(R.id.imgViewLogo);
+        ImageView imgViewLogo = findViewById(R.id.imgViewLogoOne);
         TextView txtViewAppName = findViewById(R.id.txtViewAppName);
         TextView txtViewTagLine = findViewById(R.id.txtViewTagLine);
 

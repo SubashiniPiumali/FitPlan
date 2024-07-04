@@ -21,4 +21,5 @@
     </style>
 
     <string name="calculate_your_bmi">Calculate Your BMI</string>
+    <string name="appname">FitPlan</string>
 </resources>
