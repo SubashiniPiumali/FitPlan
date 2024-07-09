@@ -1,4 +1,3 @@
-
 package com.example.fitplan.Fragment;
 
 import android.os.Bundle;
@@ -33,29 +32,35 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CreateWorkoutPlanFragment#newInstance} factory method to
+ * Use the {@link ExerciseListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateWorkoutPlanFragment extends Fragment {
+public class ExerciseListFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private ExerciseListAdapter exerciseListAdapter;
 
     private static final String API_HOST = "exercisedb.p.rapidapi.com";
     private static final String API_KEY = "ccd5887d03msh23f8ae122bdc395p1169eajsn81eb9e23195b";
-    private RecyclerView recyclerView;
-    private ExerciseAdapter exerciseAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_exercise_list, container, false);
 
-        View view =  inflater.inflate(R.layout.fragment_create_workout_plan, container, false);
+        Bundle bundle = getArguments();
+        String  bodyPart= bundle.getString("bodyPart");
+       // String  image= bundle.getString("image");
+
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        fetchExercises();
+        fetchExercises(bodyPart);
+        // Display instruction
         return view;
     }
 
-    private void fetchExercises() {
+    private void fetchExercises(String bodyPart) {
         ExerciseApiService apiService = RetrofitClient.getRetrofitInstance().create(ExerciseApiService.class);
         Call<List<Exercise>> call = apiService.getExercises(API_HOST, API_KEY, 100, 0);
 
@@ -64,36 +69,36 @@ public class CreateWorkoutPlanFragment extends Fragment {
             public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Exercise> exercises = response.body();
-                    List<Exercise> uniqueExercises = filterUniqueExercises(exercises);
+                    List<Exercise> uniqueExercises = filterExercises(exercises, bodyPart);
 
-                    Collections.sort(uniqueExercises, new Comparator<Exercise>() {
-                        @Override
-                        public int compare(Exercise e1, Exercise e2) {
-                            return e1.getBodyPart().compareToIgnoreCase(e2.getBodyPart());
-                        }
-                    });
-                    exerciseAdapter = new ExerciseAdapter(uniqueExercises);
+                    exerciseListAdapter = new ExerciseListAdapter(uniqueExercises);
 
-                    recyclerView.setAdapter(exerciseAdapter);
+                    recyclerView.setAdapter(exerciseListAdapter);
 
-                    // Handle item click
-                    exerciseAdapter.setOnItemClickListener(new ExerciseAdapter.OnItemClickListener() {
+                    exerciseListAdapter.setOnItemClickListener(new ExerciseListAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Exercise exercise) {
                             Bundle result = new Bundle();
+                            result.putString("title", exercise.getName());
+                            result.putString("image", exercise.getGifUrl());
+                            result.putString("target", exercise.getTarget());
+                            result.putString("equipment", exercise.getEquipment());
+                            result.putStringArrayList("instructions", new ArrayList<>(exercise.getInstructions()));
                             result.putString("bodyPart", exercise.getBodyPart());
-                            result.putString("image", exercise.getGifUrl());
-                            result.putString("image", exercise.getGifUrl());
                             // Handle item click here, e.g., navigate to another fragment
-                            Fragment exerciseListFragment = new ExerciseListFragment();
-                            exerciseListFragment.setArguments(result);
+                            Fragment exerciseDetailsFragment = new ExerciseDetailsFragment();
+                            exerciseDetailsFragment.setArguments(result);
                             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager() ;
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
-                            transaction.replace(R.id.frame_layout, exerciseListFragment);
+                            transaction.replace(R.id.frame_layout, exerciseDetailsFragment);
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
                     });
+
+
+
+
                 } else {
                     Log.e("CreateWorkoutPlanFragment", "Request failed. Code: " + response.code());
                 }
@@ -106,16 +111,16 @@ public class CreateWorkoutPlanFragment extends Fragment {
         });
     }
 
-    private List<Exercise> filterUniqueExercises(List<Exercise> exercises) {
+    private List<Exercise> filterExercises(List<Exercise> exercises, String bodyPart) {
         HashSet<String> exerciseNames = new HashSet<>();
-        List<Exercise> uniqueExercises = new ArrayList<>();
+        List<Exercise> filteredExercises = new ArrayList<>();
 
         for (Exercise exercise : exercises) {
-            if (exerciseNames.add(exercise.getBodyPart())) {
-                uniqueExercises.add(exercise);
+            if (exercise.getBodyPart().equals(bodyPart)) {
+                filteredExercises.add(exercise);
             }
         }
 
-        return uniqueExercises;
+        return filteredExercises;
     }
 }

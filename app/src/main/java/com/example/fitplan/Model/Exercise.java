@@ -1,11 +1,18 @@
 package com.example.fitplan.Model;
 
+import java.util.List;
+
 public class Exercise {
     // Define fields according to the JSON response
     private String id;
     private String name;
     private String bodyPart;
     private String equipment;
+    private String gifUrl;
+
+    private String target;
+
+    private List<String> instructions;
 
     // Getters and setters
     public String getId() {
@@ -38,5 +45,29 @@ public class Exercise {
 
     public void setEquipment(String equipment) {
         this.equipment = equipment;
+    }
+
+    public String getGifUrl() {
+        return gifUrl;
+    }
+
+    public void setGifUrl(String gifUrl) {
+        this.gifUrl = gifUrl;
+    }
+
+    public List<String> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<String> instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 }
