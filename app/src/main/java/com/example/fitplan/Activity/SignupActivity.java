@@ -11,11 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.fitplan.Database.HelperClass;
-import com.example.fitplan.Fragment.ProfileFragment;
-import com.example.fitplan.R;
+import com.example.fitplan.Model.UserProfile;
 import com.example.fitplan.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -78,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                                 database = FirebaseDatabase.getInstance();
                                 reference = database.getReference("users");
 
-                                HelperClass helperClass = new HelperClass(name, gender, age, weight, height, user,goal, 0.00);
+                                UserProfile helperClass = new UserProfile(name, gender, age, weight, height, user,goal, 0.00);
                                 reference.child(userId).setValue(helperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

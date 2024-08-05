@@ -22,4 +22,12 @@
 
     <string name="calculate_your_bmi">Calculate Your BMI</string>
     <string name="appname">FitPlan</string>
+    <string name="addBtn">Add</string>
+
+    <string-array name="extra_selection_spinner">
+        <item>Week 01</item>
+        <item>Week 02</item>
+        <item>Week 03</item>
+        <item>Week 04</item>
+    </string-array>
 </resources>

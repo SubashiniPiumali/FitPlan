@@ -1,11 +1,15 @@
-package com.example.fitplan.Database;
+package com.example.fitplan.Model;
 
-public class HelperClass {
+import java.util.List;
+
+public class UserProfile {
     String name,gender, email, goal;
     int age, height, weight;
     Double bmiValue;
 
-    public HelperClass(String name, String gender, int age, int weight, int height, String user, String goal, Double bmiValue) {
+    private List<WorkoutPlans> WorkoutPlans;
+
+    public UserProfile(String name, String gender, int age, int weight, int height, String user, String goal, Double bmiValue) {
         this.age = age;
         this.gender = gender;
         this.name = name;
@@ -78,5 +82,13 @@ public class HelperClass {
 
     public void setBmiValue(Double bmiValue) {
         this.bmiValue = bmiValue;
+    }
+
+    public List<WorkoutPlans> getWorkoutPlans() {
+        return WorkoutPlans;
+    }
+
+    public void setWorkoutPlans(List<WorkoutPlans> workoutPlans) {
+        WorkoutPlans = workoutPlans;
     }
 }

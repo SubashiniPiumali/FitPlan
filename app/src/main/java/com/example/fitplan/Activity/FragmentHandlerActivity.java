@@ -12,17 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.fitplan.Fragment.BMIFragment;
-import com.example.fitplan.Fragment.CreateWorkoutPlanFragment;
+import com.example.fitplan.Fragment.SelectWorkoutWeekFragment;
 import com.example.fitplan.Fragment.HistoryFragment;
 import com.example.fitplan.Fragment.HomeFragment;
 import com.example.fitplan.Fragment.ProfileFragment;
 import com.example.fitplan.R;
 import com.example.fitplan.databinding.ActivityBottomNavigationBarBinding;
-import com.example.fitplan.databinding.ActivityFragmentHandlerBinding;
 import com.example.fitplan.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseUser;
 
 public class FragmentHandlerActivity extends AppCompatActivity {
 
@@ -78,7 +76,7 @@ public class FragmentHandlerActivity extends AppCompatActivity {
                 return  true;
             }
             if(item.getItemId() == R.id.createWorkoutPlan){
-                replaceFragment(new CreateWorkoutPlanFragment());
+                replaceFragment(new SelectWorkoutWeekFragment());
                 return  true;
 
             }

@@ -2,19 +2,19 @@ package com.example.fitplan.Model;
 
 import java.util.List;
 
-public class Exercise {
-    // Define fields according to the JSON response
+public class WorkoutPlans {
     private String id;
     private String name;
     private String bodyPart;
     private String equipment;
     private String gifUrl;
+    private String planNo;
     private String weekNo;
 
     private String target;
+
     private List<String> instructions;
 
-    // Getters and setters
     public String getId() {
         return id;
     }
@@ -55,12 +55,20 @@ public class Exercise {
         this.gifUrl = gifUrl;
     }
 
-    public List<String> getInstructions() {
-        return instructions;
+    public String getPlanNo() {
+        return planNo;
     }
 
-    public void setInstructions(List<String> instructions) {
-        this.instructions = instructions;
+    public void setPlanNo(String planNo) {
+        this.planNo = planNo;
+    }
+
+    public String getWeekNo() {
+        return weekNo;
+    }
+
+    public void setWeekNo(String weekNo) {
+        this.weekNo = weekNo;
     }
 
     public String getTarget() {
@@ -71,11 +79,11 @@ public class Exercise {
         this.target = target;
     }
 
-    public String getWeekNo() {
-        return weekNo;
+    public List<String> getInstructions() {
+        return instructions;
     }
 
-    public void setWeekNo(String weekNo) {
-        this.weekNo = weekNo;
+    public void setInstructions(List<String> instructions) {
+        this.instructions = instructions;
     }
 }

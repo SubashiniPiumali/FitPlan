@@ -2,6 +2,10 @@
 package com.example.fitplan.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,14 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.fitplan.APILink.RetrofitClient;
 import com.example.fitplan.Adapter.ExerciseAdapter;
-import com.example.fitplan.Adapter.ExerciseListAdapter;
 import com.example.fitplan.Interface.ExerciseApiService;
 import com.example.fitplan.Model.Exercise;
 import com.example.fitplan.R;
@@ -41,6 +39,8 @@ public class CreateWorkoutPlanFragment extends Fragment {
     private static final String API_HOST = "exercisedb.p.rapidapi.com";
     private static final String API_KEY = "ccd5887d03msh23f8ae122bdc395p1169eajsn81eb9e23195b";
     private RecyclerView recyclerView;
+    String weekNo;
+    int  selectedYear, selectedMonth;
     private ExerciseAdapter exerciseAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +50,11 @@ public class CreateWorkoutPlanFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_create_workout_plan, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
+        Bundle bundle = getArguments();
+        selectedYear= bundle.getInt("selectedYear");
+        selectedMonth= bundle.getInt("selectedMonth");
+        weekNo= bundle.getString("weekNo");
+        // String  image= bundle.getString("image");
         fetchExercises();
         return view;
     }
@@ -84,6 +88,9 @@ public class CreateWorkoutPlanFragment extends Fragment {
                             result.putString("bodyPart", exercise.getBodyPart());
                             result.putString("image", exercise.getGifUrl());
                             result.putString("image", exercise.getGifUrl());
+                            result.putInt("selectedYear",selectedYear );
+                            result.putInt("selectedMonth",selectedMonth );
+                            result.putString("weekNo",weekNo );
                             // Handle item click here, e.g., navigate to another fragment
                             Fragment exerciseListFragment = new ExerciseListFragment();
                             exerciseListFragment.setArguments(result);

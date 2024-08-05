@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -25,11 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.List;
 
-public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
+public class WorkoutExerciseAdapter  extends RecyclerView.Adapter<WorkoutExerciseAdapter.WorkoutExerciseViewHolder> {
 
-private final List<Exercise> exerciseList;
+    private final List<WorkoutPlans> workoutPlansList;
 
-    private OnItemClickListener listener;
+    private WorkoutExerciseAdapter.OnItemClickListener listener;
 
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
@@ -43,12 +42,12 @@ private final List<Exercise> exerciseList;
 
     // Constructor and ViewHolder implementation...
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(WorkoutExerciseAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public ExerciseListAdapter(List<Exercise> exerciseList, int selectedYear, int selectedMonth, String weekNo) {
-        this.exerciseList = exerciseList;
+    public WorkoutExerciseAdapter(List<WorkoutPlans> exerciseList, int selectedYear, int selectedMonth, String weekNo) {
+        this.workoutPlansList = exerciseList;
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
@@ -60,19 +59,19 @@ private final List<Exercise> exerciseList;
 
     @NonNull
     @Override
-    public ExerciseListAdapter.ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.excersise_card_view, parent, false);
-        return new ExerciseListAdapter.ExerciseViewHolder(view);
+    public WorkoutExerciseAdapter.WorkoutExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_workout_plans_exercise_list, parent, false);
+        return new WorkoutExerciseAdapter.WorkoutExerciseViewHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-        Exercise exercise = exerciseList.get(position);
+    public void onBindViewHolder(@NonNull WorkoutExerciseAdapter.WorkoutExerciseViewHolder holder, int position) {
+        WorkoutPlans workoutPlan = workoutPlansList.get(position);
 
         boolean nextTitleCase = true;
         StringBuilder titleCaseName = new StringBuilder();
-        for (char c : exercise.getName().toCharArray()) {
+        for (char c : workoutPlan.getName().toCharArray()) {
             if (Character.isSpaceChar(c) || c == '\t' || c == '\n' || c == '\r') {
                 nextTitleCase = true;
             } else if (nextTitleCase) {
@@ -86,7 +85,7 @@ private final List<Exercise> exerciseList;
         }
 
         StringBuilder titleCaseEquipment = new StringBuilder();
-        for (char c : exercise.getEquipment().toCharArray()) {
+        for (char c : workoutPlan.getEquipment().toCharArray()) {
             if (Character.isSpaceChar(c) || c == '\t' || c == '\n' || c == '\r') {
                 nextTitleCase = true;
             } else if (nextTitleCase) {
@@ -100,7 +99,7 @@ private final List<Exercise> exerciseList;
         }
 
         StringBuilder titleCaseTarget = new StringBuilder();
-        for (char c : exercise.getTarget().toCharArray()) {
+        for (char c : workoutPlan.getTarget().toCharArray()) {
             if (Character.isSpaceChar(c) || c == '\t' || c == '\n' || c == '\r') {
                 nextTitleCase = true;
             } else if (nextTitleCase) {
@@ -121,10 +120,10 @@ private final List<Exercise> exerciseList;
             public void onClick(View v) {
                 String date = selectedYear + "-" +  selectedMonth + "-" + weekNo;
                 WorkoutPlans workoutPlan = new WorkoutPlans();
-                workoutPlan.setName(exercise.getName());
-                workoutPlan.setBodyPart(exercise.getBodyPart());
-                workoutPlan.setEquipment(exercise.getEquipment());
-                workoutPlan.setGifUrl(exercise.getGifUrl());
+                workoutPlan.setName(workoutPlan.getName());
+                workoutPlan.setBodyPart(workoutPlan.getBodyPart());
+                workoutPlan.setEquipment(workoutPlan.getEquipment());
+                workoutPlan.setGifUrl(workoutPlan.getGifUrl());
                 workoutPlan.setPlanNo(date);
                 int PlanNumber = 1;
 
@@ -141,13 +140,13 @@ private final List<Exercise> exerciseList;
 
             }
         });
-        holder.bind(exercise);
+        holder.bind(workoutPlan);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onItemClick(exercise);
+                    listener.onItemClick(workoutPlan);
                 }
             }
         });
@@ -156,10 +155,10 @@ private final List<Exercise> exerciseList;
 
     @Override
     public int getItemCount() {
-        return exerciseList.size();
+        return workoutPlansList.size();
     }
 
-    public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    public static class WorkoutExerciseViewHolder extends RecyclerView.ViewHolder {
         TextView exerciseName;
         TextView exerciseEquipment;
         Button addBtn;
@@ -167,7 +166,7 @@ private final List<Exercise> exerciseList;
         TextView exerciseTarget;
         ImageView exerciseimage;
         CardView cardView;
-        public ExerciseViewHolder(@NonNull View itemView) {
+        public WorkoutExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             exerciseName = itemView.findViewById(R.id.exercise_title);
             exerciseimage = itemView.findViewById(R.id.exercise_image);
@@ -177,24 +176,15 @@ private final List<Exercise> exerciseList;
             addBtn = itemView.findViewById(R.id.addbtn);
 
         }
-        public void bind(Exercise exercise) {
+        public void bind(WorkoutPlans workoutPlan) {
             Glide.with(itemView.getContext())
-                    .load(exercise.getGifUrl()) // Assuming getGifUrl() returns a String URL
+                    .load(workoutPlan.getGifUrl()) // Assuming getGifUrl() returns a String URL
                     .into(exerciseimage);
         }
 
     }
     public interface OnItemClickListener {
-        void onItemClick(Exercise exercise);
+        void onItemClick(WorkoutPlans workoutPlan);
     }
 
-    private int getCurrentYear() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.YEAR);
-    }
-
-    private int getCurrentMonth() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.get(Calendar.MONTH) + 1; // Month is zero-based
-    }
 }

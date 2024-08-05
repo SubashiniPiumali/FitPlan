@@ -39,6 +39,8 @@ public class ExerciseListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ExerciseListAdapter exerciseListAdapter;
 
+    String weekNo;
+    int selectedYear, selectedMonth;
     private static final String API_HOST = "exercisedb.p.rapidapi.com";
     private static final String API_KEY = "ccd5887d03msh23f8ae122bdc395p1169eajsn81eb9e23195b";
     @Override
@@ -50,6 +52,10 @@ public class ExerciseListFragment extends Fragment {
 
         Bundle bundle = getArguments();
         String  bodyPart= bundle.getString("bodyPart");
+        selectedYear = bundle.getInt("selectedYear");
+        selectedMonth = bundle.getInt("selectedMonth");
+        weekNo =  bundle.getString("weekNo");
+
        // String  image= bundle.getString("image");
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -71,7 +77,7 @@ public class ExerciseListFragment extends Fragment {
                     List<Exercise> exercises = response.body();
                     List<Exercise> uniqueExercises = filterExercises(exercises, bodyPart);
 
-                    exerciseListAdapter = new ExerciseListAdapter(uniqueExercises);
+                    exerciseListAdapter = new ExerciseListAdapter(uniqueExercises,selectedYear, selectedMonth, weekNo);
 
                     recyclerView.setAdapter(exerciseListAdapter);
 
